@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Models;
 
 namespace DataManager
@@ -14,8 +15,6 @@ namespace DataManager
 
         public DbSet<UserModel> Users { get; set; }
 
-
-
         public ApplicationContext()
         {
             Database.EnsureCreated();
@@ -23,7 +22,7 @@ namespace DataManager
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            _connectionString = "Server=localhost; Port=5432; User Id=postgres; Password=Dima2001; Database=ToDoTasks";
+            _connectionString = env.GetConfigurationString();
             optionsBuilder.UseNpgsql(_connectionString);
         }
     }
