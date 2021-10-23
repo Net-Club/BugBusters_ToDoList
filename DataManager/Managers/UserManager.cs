@@ -18,9 +18,18 @@ namespace DataManager
 
         public static List<UserModel> Get() 
         {
-            List<UserModel> result = _context.Users.ToList();
+            UserModel user = new UserModel(3, "Vasia", "2223");
+            //List<UserModel> result = _context.Users.ToList();
+            _context.Users.Add(user);
+            _context.SaveChanges();
+            return new List<UserModel>();
+        }
 
-            return result;
+        public static void Post(UserModel user)
+        {
+            _context.Users.Add(user);
+            _context.Users.Update(user);
+            _context.Users.Remove(user);
         }
     }
 }
