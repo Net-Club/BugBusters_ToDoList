@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using ResourceServer.Models;
+using Models;
 
 
 namespace ResourceServer.Controllers
@@ -8,9 +8,9 @@ namespace ResourceServer.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public ReturnModel Get() 
+        public ReturnModel<string> Get() 
         {
-            return new ReturnModel(null, 200, "Resource server started", null);
+            return new ReturnModel<string>(null, 200, "Resource server started", null);
         }
     }
 }

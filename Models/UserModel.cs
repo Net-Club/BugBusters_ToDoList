@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AuthorizationServer.Models
+﻿namespace Models
 {
     public class UserModel
     {
@@ -12,18 +6,15 @@ namespace AuthorizationServer.Models
         private string name;
         private string password;
 
-        public int Id
-        {
+        public int Id {
             get { return id; }
             set { id = value; }
         }
-        public string Name
-        {
+        public string Name {
             get { return name; }
             set { name = value; }
         }
-        public string Password
-        {
+        public string Password {
             get { return password; }
             set { password = value; }
         }
@@ -33,11 +24,6 @@ namespace AuthorizationServer.Models
             this.id = id;
             this.name = name;
             this.password = password;
-        }
-
-        public override string ToString()
-        {
-            return Convert.ToString(id) + "; " + name + "; " + password;
         }
     }
 }

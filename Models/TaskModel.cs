@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ResourceServer.Models
+﻿namespace Models
 {
     public class TaskModel
     {

@@ -8,5 +8,6 @@ namespace ResourceServer.Controllers
 {
     public class UserController : Controller
     {
+
     }
 }

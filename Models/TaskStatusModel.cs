@@ -1,4 +1,4 @@
-﻿namespace ResourceServer.Models
+﻿namespace Models
 {
     public class TaskStatusModel
     {

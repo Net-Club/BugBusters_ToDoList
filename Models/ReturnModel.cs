@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 
-namespace AuthorizationServer.Models
+namespace Models
 {
-    public class ReturnModel
+    public class ReturnModel<T>
     {
-        private string jwt;
+        private List<T> data;
         private int status;
         private string message;
-        List<string> errorList;
+        private List<string> errorList;
 
-        public string JWT{
-            get { return jwt; }
-            set { jwt = value; }
+        public List<T> Data {
+            get { return data; }
+            set { data = value; }
         }
-        public int Status {
+        public int Status
+        {
             get { return status; }
             set { status = value; }
         }
@@ -26,17 +27,9 @@ namespace AuthorizationServer.Models
             set { errorList = value; }
         }
 
-        public ReturnModel() 
+        public ReturnModel(List<T> data, int status, string message, List<string> errorList) 
         {
-            jwt = null;
-            status = 0;
-            message = null;
-            errorList = new List<string>();
-        }
-
-        public ReturnModel(string jwt, int status, string message, List<string> errorList)
-        {
-            this.jwt = jwt;
+            this.data = data;
             this.status = status;
             this.message = message;
             this.errorList = errorList;

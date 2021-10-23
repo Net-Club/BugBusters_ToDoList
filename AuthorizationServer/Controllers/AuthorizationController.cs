@@ -1,4 +1,4 @@
-﻿using AuthorizationServer.Models;
+﻿using Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text.Json;
 using AuthorizationServer.Common;
+using DataManager;
 
 namespace AuthorizationServer.Controllers
 {
@@ -22,7 +23,7 @@ namespace AuthorizationServer.Controllers
         }
 
         [HttpPost]
-        public ReturnModel Post([FromBody] JsonElement JSdata)
+        public ReturnModel<string> Post([FromBody] JsonElement JSdata)
         {
 
             UserModel user = AuthenticateUser(JSdata.GetProperty("name").GetString(), JSdata.GetProperty("password").GetString());
@@ -30,17 +31,17 @@ namespace AuthorizationServer.Controllers
             {
                 string token = GenerateJWT(user);
 
-                return new ReturnModel(token , 200, "Authorized", new List<string>());
+                return new ReturnModel<string>(new List<string>() { token } , 200, "Authorized", new List<string>());
             }
             else
             {
-                return new ReturnModel(null, 401, "UnAuthorized", new List<string>() { "wrong password or email" });
+                return new ReturnModel<string>(null, 401, "UnAuthorized", new List<string>() { "wrong password or email" });
             }
         }
 
         private UserModel AuthenticateUser(string name, string password)
         {
-            List<UserModel> accounts = DataManager.Get();
+            List<UserModel> accounts = UserManager.Get();
 
             for (int i = 0; i < accounts.Count; i++)
             {
