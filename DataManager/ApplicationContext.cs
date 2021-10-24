@@ -14,6 +14,8 @@ namespace DataManager
         private string _connectionString;
 
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<StatusModel> Status { get; set; }
+        public DbSet<TaskModel> Tasks { get; set; }
 
         public ApplicationContext()
         {
