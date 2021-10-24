@@ -7,18 +7,35 @@ using System.Threading.Tasks;
 
 namespace DataManager
 {
-    class TaskManager
+    public class TaskManager
     {
-        public static List<TaskModel> Get() { 
-        }
-        public static List<TaskModel> Post()
+        /*public static ApplicationContext _context;
+
+        static UserManager()
         {
-        }
-        public static List<TaskModel> Put()
+            ApplicationContext context = new ApplicationContext();
+            _context = context;
+        }*/
+
+        public static List<TaskModel> Get() 
         {
+            List<TaskModel> result = ApplicationContext._context.Tasks.ToList();
+            return new List<TaskModel>();
         }
-        public static List<TaskModel> Delete()
+        public static void Post(TaskModel task)
         {
+            ApplicationContext._context.Tasks.Add(task);
+            ApplicationContext._context.SaveChanges();
+        }
+        public static void Put(TaskModel task)
+        {
+            ApplicationContext._context.Tasks.Update(task);
+            ApplicationContext._context.SaveChanges();
+        }
+        public static void Delete(TaskModel task)
+        {
+            ApplicationContext._context.Tasks.Remove(task);
+            ApplicationContext._context.SaveChanges();
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Models
 {
-    [Table("User")]
+    [Table("Users")]
     public class UserModel
     {
         private int id;
@@ -23,6 +23,11 @@ namespace Models
         public string Password {
             get { return password; }
             set { password = value; }
+        }
+
+        public UserModel(int id)
+        {
+            this.id = id;
         }
 
         public UserModel(int id, string name, string password)

@@ -27,5 +27,13 @@ namespace DataManager
             _connectionString = env.GetConfigurationString();
             optionsBuilder.UseNpgsql(_connectionString);
         }
+
+        public static ApplicationContext _context;
+
+        static ApplicationContext()
+        {
+            ApplicationContext context = new ApplicationContext();
+            _context = context;
+        }
     }
 }

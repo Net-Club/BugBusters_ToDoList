@@ -1,5 +1,8 @@
-﻿namespace Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Models
 {
+    [Table("Tasks")]
     public class TaskModel
     {
         private int id;
@@ -8,22 +11,27 @@
         private int user_id;
         private int status_id;
 
+        [Column("id")]
         public int Id {
             get { return id; }
             set { id = value; }
         }
+        [Column("task")]
         public string Task {
             get { return task; }
             set { task = value; }
         }
+        [Column("description")]
         public string Description {
             get { return description; }
             set { description = value; }
         }
+        [Column("user_id")]
         public int User_id {
             get { return user_id; }
             set { user_id = value; }
         }
+        [Column("status_id")]
         public int Status_id {
             get { return status_id; }
             set { status_id = value; }
