@@ -36,7 +36,7 @@ namespace DataManager
 
         public static void DeletebyId(int id)
         {
-            UserModel user = new UserModel(id);
+            UserModel user = new UserModel(id, null, null);
             ApplicationContext._context.Users.Remove(user);
             ApplicationContext._context.SaveChanges();
         }
