@@ -9,7 +9,9 @@ namespace DataManager
 {
     class StatusManager
     {
-        /*public static ApplicationContext _context;
+        public static ApplicationContext _context = new ApplicationContext();
+        /*
+         * 
 
         static StatusManager()
         {
