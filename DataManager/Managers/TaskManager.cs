@@ -6,26 +6,25 @@ namespace DataManager
 {
     public class TaskManager
     {
-        public static ApplicationContext context = new ApplicationContext();
 
         public static List<TaskModel> Get() 
         {
-            return context.Tasks.ToList();
+            return ApplicationContextHolder.context.Tasks.ToList();
         }
         public static void Post(TaskModel task)
         {
-            context.Tasks.Add(task);
-            context.SaveChanges();
+            ApplicationContextHolder.context.Tasks.Add(task);
+            ApplicationContextHolder.context.SaveChanges();
         }
         public static void Put(TaskModel task)
         {
-            context.Tasks.Update(task);
-            context.SaveChanges();
+            ApplicationContextHolder.context.Tasks.Update(task);
+            ApplicationContextHolder.context.SaveChanges();
         }
         public static void Delete(int id)
         {
-            context.Tasks.Remove(new TaskModel(id, null, null, 0, 0));
-            context.SaveChanges();
+            ApplicationContextHolder.context.Tasks.Remove(new TaskModel(id, null, null, 0, 0));
+            ApplicationContextHolder.context.SaveChanges();
         }
     }
 }
