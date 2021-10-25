@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.EntityFrameworkCore;
 using Models;
 
 namespace DataManager
 {
     public class ApplicationContext : DbContext
     {
-        private string _connectionString;
-
         public DbSet<UserModel> Users { get; set; }
         public DbSet<StatusModel> Status { get; set; }
         public DbSet<TaskModel> Tasks { get; set; }
@@ -24,16 +16,7 @@ namespace DataManager
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            _connectionString = env.GetConfigurationString();
-            optionsBuilder.UseNpgsql(_connectionString);
-        }
-
-        public static ApplicationContext _context;
-
-        static ApplicationContext()
-        {
-            ApplicationContext context = new ApplicationContext();
-            _context = context;
+            optionsBuilder.UseNpgsql(env.GetConfigurationString());
         }
     }
 }
