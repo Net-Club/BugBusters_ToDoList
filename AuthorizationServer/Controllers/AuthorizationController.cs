@@ -31,11 +31,11 @@ namespace AuthorizationServer.Controllers
             {
                 string token = GenerateJWT(user);
 
-                return new ReturnModel<string>(new List<string>() { token } , 200, "Authorized", new List<string>());
+                return new ReturnModel<string>(new List<string>() { token } , 200, "Authorized");
             }
             else
             {
-                return new ReturnModel<string>(null, 401, "UnAuthorized", new List<string>() { "wrong password or email" });
+                return new ReturnModel<string>(null, 401, "UnAuthorized");
             }
         }
 

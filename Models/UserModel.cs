@@ -25,9 +25,11 @@ namespace Models
             set { password = value; }
         }
 
-        public UserModel(int id)
+        public UserModel(string name, string password)
         {
-            this.id = id;
+            id = -1;
+            this.name = name;
+            this.password = password;
         }
 
         public UserModel(int id, string name, string password)

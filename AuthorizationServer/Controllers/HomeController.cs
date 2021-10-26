@@ -9,7 +9,7 @@ namespace AuthorizationServer.Controllers
         [HttpGet]
         public ReturnModel<string> Get()
         {
-            return new ReturnModel<string>(null, 200, "Resource server started", null);
+            return new ReturnModel<string>(null, 200, "Resource server started");
         }
     }
 }
