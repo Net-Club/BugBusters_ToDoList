@@ -12,10 +12,11 @@ namespace DataManager
             return ApplicationContextHolder.context.Users.ToList();
         }
 
-        public static void Post(UserModel user)
+        public static bool Post(UserModel user)
         {
             ApplicationContextHolder.context.Users.Add(user);
             ApplicationContextHolder.context.SaveChanges();
+            return true;
         }
     }
 }

@@ -45,5 +45,13 @@ namespace Models
             this.user_id = user_id;
             this.status_id = status_id;
         }
+
+        public TaskModel(string task, string description, int user_id, int status_id)
+        {
+            this.task = task;
+            this.description = description;
+            this.user_id = user_id;
+            this.status_id = status_id;
+        }
     }
 }
