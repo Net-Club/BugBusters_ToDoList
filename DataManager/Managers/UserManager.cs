@@ -15,8 +15,7 @@ namespace DataManager
         public static bool Post(UserModel user)
         {
             ApplicationContextHolder.context.Users.Add(user);
-            ApplicationContextHolder.context.SaveChanges();
-            return true;
+            return Utill.Save();
         }
     }
 }
