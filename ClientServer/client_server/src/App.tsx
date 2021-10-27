@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Navigation from './Components/NavigationComponent/Navigation';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { Redirect } from 'react-router';
+import HomeComponent from './Components/HomeComponent/HomeComponent';
+import LogInComponent from './Components/LogInComponent/LogInComponent';
+import RegisterComponent from './Components/RegisterComponent/RegisterComponent';
+import TaskComponent from './Components/TaskComponent/TaskComponent';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navigation></Navigation>
+      <main className="form-signin">
+      <Switch>
+        <Route exact path="/" component={HomeComponent} />
+        <Route path="/login" component={LogInComponent}/>
+        <Route path="/register" component={RegisterComponent}/>
+        <Route path="/tasks" component={TaskComponent}/>
+      </Switch>
+      </main>
+    </Router>
   );
 }
 
