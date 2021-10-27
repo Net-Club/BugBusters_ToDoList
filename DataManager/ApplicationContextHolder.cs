@@ -2,6 +2,6 @@
 {
     class ApplicationContextHolder
     {
-        public static ApplicationContext context = new ApplicationContext(); 
+        public static ApplicationContext context = new ();
     }
 }

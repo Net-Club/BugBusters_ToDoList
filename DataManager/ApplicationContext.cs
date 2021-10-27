@@ -20,7 +20,7 @@ namespace DataManager
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder
-                .UseNpgsql(env.GetConfigurationString())
+                .UseNpgsql(Env.GetConfigurationString())
                 .EnableSensitiveDataLogging()
                 .UseLoggerFactory(ContextLoggerFactory);
 

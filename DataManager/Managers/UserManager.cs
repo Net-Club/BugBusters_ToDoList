@@ -7,7 +7,7 @@ namespace DataManager
     public class UserManager
     {
 
-        public static List<UserModel> Get() 
+        public static List<UserModel> Get()
         {
             return ApplicationContextHolder.context.Users.ToList();
         }

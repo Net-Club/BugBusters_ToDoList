@@ -26,7 +26,7 @@ namespace ResourceServer.Controllers
         [HttpPost]
         public ReturnModel<string> Post([FromBody] JsonElement JSdata)
         {
-            TaskModel task = null;
+            TaskModel task;
             try
             {
                 task = new TaskModel(0,
@@ -47,7 +47,7 @@ namespace ResourceServer.Controllers
         [HttpPut]
         public ReturnModel<string> Put([FromBody] JsonElement JSdata)
         {
-            TaskModel task = null;
+            TaskModel task;
             try
             {
                 task = new TaskModel(
@@ -69,10 +69,10 @@ namespace ResourceServer.Controllers
         [HttpDelete]
         public ReturnModel<string> Delete([FromBody] JsonElement JSdata)
         {
-            int id = -1;
+            int id;
             try
             {
-                id = JSdata.GetProperty("id").GetInt32(); 
+                id = JSdata.GetProperty("id").GetInt32();
             }
             catch
             {
