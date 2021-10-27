@@ -12,18 +12,18 @@ namespace ResourceServer.Controllers
         [HttpPost]
         public ReturnModel<string> Post([FromBody] JsonElement JSdata)
         {
-            UserModel user = new UserModel(JSdata.GetProperty("name").GetString(), JSdata.GetProperty("password").GetString());
-
-            if (UserManager.Post(user)) { return new ReturnModel<string>(null, 200, "Data saved"); }
-            return new ReturnModel<string>(null, 400, "Data not saved");
+            UserModel user = null;
             try
             {
-                
+                user = new UserModel(0, JSdata.GetProperty("name").GetString(), JSdata.GetProperty("password").GetString());
             }
             catch 
             {
                 return new ReturnModel<string>(null, 400, "Wrong JS Data");
             }
+
+            if (UserManager.Post(user)) { return new ReturnModel<string>(null, 200, "Data saved"); }
+            return new ReturnModel<string>(null, 400, "Data not saved");
         }
     }
 }

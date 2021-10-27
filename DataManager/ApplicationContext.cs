@@ -7,7 +7,7 @@ namespace DataManager
     public class ApplicationContext : DbContext
     {
         public DbSet<UserModel> Users { get; set; }
-        public DbSet<StatusModel> Status { get; set; }
+        public DbSet<StatusModel> Statuses { get; set; }
         public DbSet<TaskModel> Tasks { get; set; }
 
         public ApplicationContext()
@@ -30,6 +30,12 @@ namespace DataManager
             modelBuilder.Entity<UserModel>()
                 .Property(b => b.Id)
                 .UseIdentityAlwaysColumn();
+
+            modelBuilder.Entity<TaskModel>()
+                .Property(b => b.Id)
+                .UseIdentityAlwaysColumn();
+
+            modelBuilder.Entity<StatusModel>();
         }
     }
 }

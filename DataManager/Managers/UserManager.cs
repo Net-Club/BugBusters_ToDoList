@@ -14,9 +14,8 @@ namespace DataManager
 
         public static bool Post(UserModel user)
         {
-            var feedBack = ApplicationContextHolder.context.Users.Add(user);
-            ApplicationContextHolder.context.SaveChanges();
-            return feedBack.IsKeySet;
+            ApplicationContextHolder.context.Users.Add(user);
+            return Utill.Save();
         }
     }
 }

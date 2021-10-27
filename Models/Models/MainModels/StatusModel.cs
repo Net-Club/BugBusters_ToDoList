@@ -1,25 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Models
+﻿namespace Models
 {
-    [Table("Satatuses")]
     public class StatusModel
     {
         private int id;
         private string status;
         private string description;
 
-        [Column("id")]
         public int Id {
             get { return id; }
             set { id = value; }
         }
-        [Column("status")]
         public string Status {
             get { return status; }
             set { status = value; }
         }
-        [Column("description")]
         public string Description {
             get { return description; }
             set { description = value; }
