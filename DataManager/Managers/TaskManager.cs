@@ -26,6 +26,6 @@ namespace DataManager
         {
             ApplicationContextHolder.context.Tasks.Remove(new TaskModel(id, null, null, 0, 0));
             return Utill.Save();
-        } 
+        }
     }
 }

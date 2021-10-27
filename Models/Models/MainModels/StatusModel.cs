@@ -6,20 +6,23 @@
         private string status;
         private string description;
 
-        public int Id {
+        public int Id
+        {
             get { return id; }
             set { id = value; }
         }
-        public string Status {
+        public string Status
+        {
             get { return status; }
             set { status = value; }
         }
-        public string Description {
+        public string Description
+        {
             get { return description; }
             set { description = value; }
         }
 
-        public StatusModel(int id, string status, string description) 
+        public StatusModel(int id, string status, string description)
         {
             this.id = id;
             this.status = status;

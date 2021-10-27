@@ -7,7 +7,7 @@ namespace DataManager
     {
         public static List<TaskStatusModel> GetTaskStatusList(int id)
         {
-            List<TaskStatusModel> result = new List<TaskStatusModel>();
+            List<TaskStatusModel> result = new ();
             foreach (TaskModel task in TaskManager.Get())
             {
                 if (task.User_id == id)

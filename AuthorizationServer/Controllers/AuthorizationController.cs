@@ -1,14 +1,14 @@
-﻿using Models;
+﻿using AuthorizationServer.Common;
+using DataManager;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Claims;
+using Models;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text.Json;
-using AuthorizationServer.Common;
-using DataManager;
 
 namespace AuthorizationServer.Controllers
 {
@@ -31,7 +31,7 @@ namespace AuthorizationServer.Controllers
             {
                 string token = GenerateJWT(user);
 
-                return new ReturnModel<string>(new List<string>() { token } , 200, "Authorized");
+                return new ReturnModel<string>(new List<string>() { token }, 200, "Authorized");
             }
             else
             {
@@ -39,7 +39,7 @@ namespace AuthorizationServer.Controllers
             }
         }
 
-        private UserModel AuthenticateUser(string name, string password)
+        private static UserModel AuthenticateUser(string name, string password)
         {
             List<UserModel> accounts = UserManager.Get();
 
@@ -58,15 +58,15 @@ namespace AuthorizationServer.Controllers
             AuthOptions authParams = authOptions.Value;
 
             SymmetricSecurityKey securityKey = authParams.GetSymmetricSecurityKey();
-            SigningCredentials credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            SigningCredentials credentials = new (securityKey, SecurityAlgorithms.HmacSha256);
 
-            List<Claim> claims = new List<Claim>()
+            List<Claim> claims = new ()
             {
                 new Claim (JwtRegisteredClaimNames.Email, user.Name),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
             };
 
-            JwtSecurityToken token = new JwtSecurityToken(authParams.Issuer,
+            JwtSecurityToken token = new (authParams.Issuer,
                 authParams.Audience,
                 claims,
                 expires: DateTime.Now.AddSeconds(authParams.TokenLifeTime),

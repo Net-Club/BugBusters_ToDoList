@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Models
+﻿namespace Models
 {
 
     public class UserModel
@@ -10,17 +8,20 @@ namespace Models
         private string password;
 
 
-        public int Id {
+        public int Id
+        {
             get { return id; }
             set { id = value; }
         }
 
-        public string Name {
+        public string Name
+        {
             get { return name; }
             set { name = value; }
         }
 
-        public string Password {
+        public string Password
+        {
             get { return password; }
             set { password = value; }
         }

@@ -8,7 +8,7 @@ namespace Models
         private int status;
         private string message;
 
-        public List<T> Data 
+        public List<T> Data
         {
             get { return data; }
             set { data = value; }
@@ -26,7 +26,7 @@ namespace Models
             set { message = value; }
         }
 
-        public ReturnModel(List<T> data, int status, string message) 
+        public ReturnModel(List<T> data, int status, string message)
         {
             this.data = data;
             this.status = status;

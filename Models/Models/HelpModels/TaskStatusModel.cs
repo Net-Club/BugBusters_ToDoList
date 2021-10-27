@@ -9,9 +9,9 @@
         private string status;
         private string status_desc;
 
-        public int Id 
+        public int Id
         {
-            get  { return id; }
+            get { return id; }
             set { id = value; }
         }
         public int User_id
@@ -41,7 +41,7 @@
         }
 
 
-        public TaskStatusModel(TaskModel task, StatusModel status) 
+        public TaskStatusModel(TaskModel task, StatusModel status)
         {
             id = task.Id;
             this.task = task.Task;
