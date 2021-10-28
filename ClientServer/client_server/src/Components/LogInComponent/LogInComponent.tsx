@@ -7,7 +7,7 @@ let password: string;
 
 function LogInComponent() {
   return (
-    <form>
+    <form className="form-control">
 
       <h1 className="h3 mb-3 fw-normal, header">Please sign in</h1>
 
@@ -21,7 +21,7 @@ function LogInComponent() {
 }
         
 function LogIn() {
-  name = "Yura";
+  name = "dima";
   password = "1111";
 
   let user: UserModel = new UserModel(name, password);
@@ -33,10 +33,13 @@ function LogIn() {
   const requestOptions = {
     method: 'POST',
     headers: headers,
-    body: JSON.stringify({ user })
+    body: JSON.stringify( user )
   };
+  var answer;
   fetch(url, requestOptions)
-    .then(response => alert(response.json()))
+    .then(response => alert(response.json()));
+  
+  //alert(answer);
 }
 
 export default LogInComponent;
