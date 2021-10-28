@@ -2,8 +2,8 @@ import axios from 'axios';
 import { env } from '../../env';
 import { UserModel } from '../../Models/UserModel';
 
-let name: string = "New";
-let password: string = "asdas";
+let name: string;
+let password: string;
 
 function LogInComponent() {
   return (
@@ -16,19 +16,15 @@ function LogInComponent() {
       <input value={password} id="password" className="form-control" placeholder="Password" required />
 
       <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={LogIn}>Sign in</button>
-
     </form>
   );
 }
-
+        
 function LogIn() {
   name = "Yura";
   password = "1111";
 
   let user: UserModel = new UserModel(name, password);
-
-  
-
   let headers = { 'Content-Type': 'application/json' }
   let url: string = "http://localhost:32446/auth/authorization";
 
