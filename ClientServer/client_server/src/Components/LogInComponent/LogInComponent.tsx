@@ -1,29 +1,42 @@
-import { allowedNodeEnvironmentFlags } from 'process';
-import React from 'react';
-import './LogIn.css'
+import axios from 'axios';
+import { env } from '../../env';
+import { UserModel } from '../../Models/UserModel';
 
-function LogIn() {
+let name: string;
+let password: string;
+
+function LogInComponent() {
   return (
-    <form >
-  
-    <h1 className="h3 mb-3 fw-normal, header">Please sign in</h1>
+    <form>
 
-    <input id="name"  type="name" className="form-control" placeholder="Name" required/>
+      <h1 className="h3 mb-3 fw-normal, header">Please sign in</h1>
 
-    <input id="password" type="password" className="form-control" placeholder="Password" required/>
+      <input value={name} id="name" className="form-control" placeholder="Name" required />
 
-    <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={_logIn}>Sign in</button>
+      <input value={password} id="password" className="form-control" placeholder="Password" required />
 
-  </form>
+      <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={LogIn}>Sign in</button>
+    </form>
   );
 }
+        
+function LogIn() {
+  name = "Yura";
+  password = "1111";
 
-function _logIn()
-{
-  let name = document.getElementById('name')?.textContent;
-  let password = document.getElementById('password')?.textContent;
+  let user: UserModel = new UserModel(name, password);
+  let headers = { 'Content-Type': 'application/json' }
+  let url: string = "http://localhost:32446/auth/authorization";
 
-  console.log("name", "password");
+  alert(url);
+
+  const requestOptions = {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify({ user })
+  };
+  fetch(url, requestOptions)
+    .then(response => alert(response.json()))
 }
 
-export default LogIn;
+export default LogInComponent;
