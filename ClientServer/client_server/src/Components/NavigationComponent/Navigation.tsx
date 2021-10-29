@@ -2,7 +2,11 @@ import React from 'react';
 import './Navigation.css'
 import { Link } from 'react-router-dom';
 
+var loggedIn: boolean;
 function Navigation() {
+  if(localStorage.getItem("token") != null){
+    loggedIn = true;
+  }
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
       <div className="container-fluid">
