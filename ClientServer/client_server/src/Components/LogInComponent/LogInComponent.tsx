@@ -1,11 +1,11 @@
 import axios from 'axios';
+import { allowedNodeEnvironmentFlags } from 'process';
 import { env } from '../../env';
 import { ReturnModel } from '../../Models/ReturnModel';
 import { UserModel } from '../../Models/UserModel';
 
 let name: string;
 let password: string;
-//let data: Array<string>;
 let status: number;
 let message: string = "test";
 let model: ReturnModel;
@@ -20,36 +20,36 @@ function LogInComponent() {
 
       <input value={password} id="password" className="form-control" placeholder="Password" required />
 
-      <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={LogIn}>Sign in</button>
+      <button className="w-100 btn btn-lg btn-primary" type="submit" onClick={LogInSend}>Sign in</button>
     </form>
   );
 }
 
-async function LogInSend(){
-  name = "dima";
+async function LogInSend() {
+  name = "Yura";
   password = "1111";
 
   let user: UserModel = new UserModel(name, password);
-  let headers = { 'Content-Type': 'application/json' }
-  let url: string = "http://localhost:32446/auth/authorization";
+  
+  GetData(user);
 
+  console.log(model);
+}
+async function GetData(user: UserModel) {
   const requestOptions = {
     method: 'POST',
-    headers: headers,
+    headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify( user )
   };
-  fetch(url, requestOptions)
-    .then((response) => {
-    return response.json();
-  })
-    .then((data) => {
-    //data = data.data;
-    status = data.status;
-    message = message;
-    console.log(data.message);
-  });
+  const response = await fetch("http://localhost:32446/auth/authorization", requestOptions);
+  const data = await response.json();
+
+  model = new ReturnModel(data.data, data.status, data.message);
 }
-        
+
+
+
+
 function LogIn() {
   name = "dima";
   password = "1111";

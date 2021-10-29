@@ -13,5 +13,12 @@ export class ReturnModel{
     public setMessage(message: string){
         this.message = message;
     }
+
+    public Set(data:Array<any>, status:number, message:string)
+    {
+        this.data = data;
+        this.status = status;
+        this.message = message;
+    }
 }
 
