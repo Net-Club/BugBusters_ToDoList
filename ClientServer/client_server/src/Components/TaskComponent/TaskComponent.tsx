@@ -1,10 +1,15 @@
 import React from 'react';
 
 
-function Tasks() {
+function TasksComponent() {
   return (
-    <h1>Tasks</h1>
+    <h1 onClick={Click}>Tasks</h1>
   );
 }
 
-export default Tasks;
+function Click()
+{
+  console.log(localStorage.getItem("token"))
+}
+
+export default TasksComponent;
