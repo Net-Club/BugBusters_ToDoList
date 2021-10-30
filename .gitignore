@@ -363,5 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 ClientServer/client_server/package-lock.json
 ClientServer/client_server/package.json
-ClientServer/client_server/package-lock.json
-ClientServer/client_server/package.json
+
