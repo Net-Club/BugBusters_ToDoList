@@ -8,10 +8,8 @@ function Navigation() {
   }
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <div className="container-fluid">
-        <Link to="/tasks" className="Link">
+      <div className="container-fluid" onClick={ifLogedIn}>
           <a className="navbar-brand" >ToDoList</a>
-        </Link>
         <div>
           <ul className="navbar-nav me-auto mb-2 mb-md-0" >
             {CheckToken() === false &&
@@ -36,6 +34,15 @@ function Navigation() {
   );
 }
 
+function ifLogedIn()
+{
+  if (CheckToken())
+  {
+    window.history.replaceState(null, "", "/tasks")
+    window.location.reload();
+  }
+}
+
 function CheckToken(): boolean {
   if (localStorage.getItem("token") == "") {
     return false;
@@ -43,9 +50,10 @@ function CheckToken(): boolean {
   return true;
 }
 
-function LogOut()
-{
+function LogOut() {
   localStorage.setItem("token", "");
+
+  window.history.replaceState(null, "", "/")
   window.location.reload();
 }
 

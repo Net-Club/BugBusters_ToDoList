@@ -35,7 +35,7 @@ namespace AuthorizationServer.Controllers
             }
             else
             {
-                return new ReturnModel<string>(null, 401, "UnAuthorized");
+                return new ReturnModel<string>(new List<string>() { "" }, 401, "UnAuthorized");
             }
         }
 

@@ -1,0 +1,11 @@
+.Rect 
+{
+    height: 30px;
+    width: 100%;
+}
+
+.Container 
+{
+    width: 25%;
+    height: 40%;
+}
