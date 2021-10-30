@@ -1,12 +1,12 @@
-export class env 
+export class environment
 {
-    public static GetResUrl() : string
+    public static GetResUrl(end:string) : string
     {
-        return "";
+        return "http://localhost:43073/res" + end;
     }
 
-    public static GetAuthUrl() : string
+    public static GetAuthUrl(end:string) : string
     {
-        return "http://localhost:32446/auth";
+        return "http://localhost:32446/auth" + end;
     }
 }
