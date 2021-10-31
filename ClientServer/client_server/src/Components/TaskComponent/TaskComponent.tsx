@@ -1,7 +1,7 @@
-import { TaskStatusModel } from "../../Models/TaskStatusModel";
+import { TaskModel } from "../../Models/TaskModel";
 import "./Task.css"
 
-let Data: Array<TaskStatusModel>;
+//let Data: Array<TaskStatusModel>;
 
 function TaskComponent() {
   Get();
@@ -21,16 +21,27 @@ function TaskComponent() {
           </div>
         </div>
       </div>
+      <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Add}>Add</button>
     </div>
+
   );
 }
 
-function Get(){};
+function Get() { };
 
-function Edit(){};
+function Edit() {
+  let task: TaskModel = new TaskModel(2, "NewTask", "Description", 1);
+  localStorage.setItem("task", JSON.stringify(task))
+  window.history.replaceState(null, "", "/add_update")
+  window.location.reload();
+};
 
-function Delete(){};
+function Delete() { };
 
-function Add(){};
+function Add() {
+  localStorage.setItem("task", "")
+  window.history.replaceState(null, "", "/add_update")
+  window.location.reload();
+};
 
 export default TaskComponent;

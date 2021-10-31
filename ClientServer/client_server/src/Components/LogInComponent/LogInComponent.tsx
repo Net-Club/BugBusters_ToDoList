@@ -28,7 +28,7 @@ async function LogIn() {
 
   console.log(model.message);
   localStorage.setItem("token", "");
-  if (model.status == 200) {
+  if (model.status === 200) {
     localStorage.setItem("token", model.data[0]);
     window.history.replaceState(null, "", "/tasks")
     window.location.reload();

@@ -30,7 +30,7 @@ async function Register() {
 
   console.log(model.message);
 
-  if (model.status == 200) {
+  if (model.status === 200) {
     window.history.replaceState(null, "", "/login");
     window.location.reload();
   }
