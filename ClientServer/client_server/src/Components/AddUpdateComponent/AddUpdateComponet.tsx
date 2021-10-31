@@ -1,3 +1,4 @@
+import Select from 'react-dropdown-select';
 import { TaskModel } from '../../Models/TaskModel';
 import './AddUpdate.css'
 
@@ -5,8 +6,7 @@ let ButtonText: string
 let HeaderText: string
 
 let json: any = localStorage.getItem('task')
-let task: TaskModel = JSON.parse(json)
-
+let task: TaskModel = new TaskModel(-1, "", "", 0);
 
 function AddUpdateComponent() {
     CheckAddorUp();
@@ -29,6 +29,7 @@ function CheckAddorUp() {
     if (localStorage.getItem("task") !== "") {
         ButtonText = "Update"
         HeaderText = "Update task"
+        task = JSON.parse(json);
     }
     else {
         ButtonText = "Add"
