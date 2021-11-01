@@ -3,11 +3,10 @@ import { TaskStatusModel } from "../../Models/TaskStatusModel";
 import { environment } from '../../env';
 import "./Task.css"
 
-//let Data: Array<TaskStatusModel>;
+let Model: Array<TaskStatusModel>;
 
 function TaskComponent() {
-  let Data = Get();
-  //let Model: Array<TaskStatusModel>(,) = Data;
+  InitializeData();
   return (
     <div className="col, Container">
       <div className="card shadow-sm">
@@ -30,15 +29,20 @@ function TaskComponent() {
   );
 }
 
+async function InitializeData(){
+  let Data = await Get();
+  Model = Data;
+  console.log(Model);
+}
+
 async function Get() {
   const requestOptions = {
     method: 'GET',
-    headers: { 'Content-Type': 'application/json', 'Authorization': 'Baerer ' + localStorage.getItem("token") },
-    //body: JSON.stringify()
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token") }
   };
   const response = await fetch(environment.GetResUrl("/task"), requestOptions);
   const data = await response.json();
-  return data;
+  return data.data;
  };
 
 function Edit() {
