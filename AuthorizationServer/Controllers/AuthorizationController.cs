@@ -25,8 +25,9 @@ namespace AuthorizationServer.Controllers
         [HttpPost]
         public ReturnModel<string> Post([FromBody] JsonElement JSdata)
         {
-
-            UserModel user = AuthenticateUser(JSdata.GetProperty("name").GetString(), JSdata.GetProperty("password").GetString());
+            UserModel user;
+            try { user = AuthenticateUser(JSdata.GetProperty("name").GetString(), JSdata.GetProperty("password").GetString()); }
+            catch { return new ReturnModel<string>(new List<string>() { "" }, 401, "Wrong JS data"); }
             if (user != null)
             {
                 string token = GenerateJWT(user);
