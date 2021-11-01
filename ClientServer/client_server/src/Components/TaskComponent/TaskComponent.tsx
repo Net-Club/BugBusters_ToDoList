@@ -1,10 +1,13 @@
 import { TaskModel } from "../../Models/TaskModel";
+import { TaskStatusModel } from "../../Models/TaskStatusModel";
+import { environment } from '../../env';
 import "./Task.css"
 
 //let Data: Array<TaskStatusModel>;
 
 function TaskComponent() {
-  Get();
+  let Data = Get();
+  let Model: Array<TaskStatusModel>(,) = Data;
   return (
     <div className="col, Container">
       <div className="card shadow-sm">
@@ -27,7 +30,16 @@ function TaskComponent() {
   );
 }
 
-function Get() { };
+async function Get() {
+  const requestOptions = {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Baerer ' + localStorage.getItem("token") },
+    //body: JSON.stringify()
+  };
+  const response = await fetch(environment.GetResUrl("/task"), requestOptions);
+  const data = await response.json();
+  return data;
+ };
 
 function Edit() {
   let task: TaskModel = new TaskModel(2, "NewTask", "Description", 1);
