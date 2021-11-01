@@ -19,6 +19,18 @@ function AddUpdateComponent() {
             <div className="Pad">
                 <input onChange={event => task.description = event.target.value} value={task.description} id="description" className="Pad, form-control" placeholder="Description" required />
             </div>
+
+            <div className="dd-wrapper">
+                <div className="dd-header">
+                    <div className="dd-header-title"></div>
+                </div>
+                <div className="dd-list">
+                    <button className="dd-list-item"></button>
+                    <button className="dd-list-item"></button>
+                    <button className="dd-list-item"></button>
+                </div>
+            </div>
+
             <button className="w-100 btn btn-lg btn-primary" type="button" >{ButtonText}</button>
         </form>
     );

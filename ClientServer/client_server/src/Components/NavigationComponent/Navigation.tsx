@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 function Navigation() {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-      <div className="container-fluid" onClick={ifLogedIn}>
-          <a className="navbar-brand" >ToDoList</a>
+      <div className="container-fluid">
+          <Link to={ifLogedIn} className="navbar-brand" >ToDoList</Link>
         <div>
           <ul className="navbar-nav me-auto mb-2 mb-md-0" >
             {CheckToken() === false &&
@@ -30,13 +30,13 @@ function Navigation() {
   );
 }
 
-function ifLogedIn()
+function ifLogedIn(): string
 {
   if (CheckToken())
   {
-    window.history.replaceState(null, "", "/tasks")
-    window.location.reload();
+    return "/tasks"
   }
+  return "";
 }
 
 function CheckToken(): boolean {
