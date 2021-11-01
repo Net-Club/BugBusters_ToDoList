@@ -7,7 +7,7 @@ import "./Task.css"
 
 function TaskComponent() {
   let Data = Get();
-  let Model: Array<TaskStatusModel>(,) = Data;
+  //let Model: Array<TaskStatusModel>(,) = Data;
   return (
     <div className="col, Container">
       <div className="card shadow-sm">
