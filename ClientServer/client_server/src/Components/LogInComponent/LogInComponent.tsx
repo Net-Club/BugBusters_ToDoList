@@ -24,23 +24,24 @@ function LogInComponent() {
 async function LogIn() {
   let user: UserModel = new UserModel(name, password)
   let data: any
-  try { let data = await GetData(user) }
+  try {data = await GetData(user)}
   catch
   {
     alert("Authorization server is not running")
     return
   }
+  finally{
   let model: ReturnModel = data
-  alert(model.data)
-  console.log(model.message);
-  localStorage.setItem("token", "")
-  if (model.status === 200) {
-    localStorage.setItem("token", model.data[0])
-    window.history.replaceState(null, "", "/tasks")
-    window.location.reload()
-  }
-  else {
-    alert(model.message)
+    console.log(model.message);
+    localStorage.setItem("token", "")
+    if (model.status === 200) {
+      localStorage.setItem("token", model.data[0])
+      window.history.replaceState(null, "", "/tasks")
+      window.location.reload()
+    }
+    else {
+      alert(model.message)
+    }
   }
 }
 
