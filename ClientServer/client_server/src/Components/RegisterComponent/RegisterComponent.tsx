@@ -16,7 +16,7 @@ function RegisterComponent() {
       <div className="Pad">
         <input onChange={event => password = event.target.value} value={password} id="password" type="password" className="form-control" placeholder="Password" required />
       </div>
-      <button className="w-100 btn btn-lg btn-primary" type="button" onClick={Register}>Register</button>
+      <button className="w-100 btn btn-lg btn-dark" type="button" onClick={Register}>Register</button>
     </form>
   );
 }
