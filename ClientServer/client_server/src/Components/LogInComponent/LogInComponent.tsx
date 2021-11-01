@@ -16,7 +16,7 @@ function LogInComponent() {
       <div className="Pad">
         <input onChange={event => password = event.target.value} value={password} id="password" type="password" className="Pad, form-control" placeholder="Password" required />
       </div>
-      <button className="w-100 btn btn-lg btn-primary" type="button" onClick={LogIn}>Sign in</button>
+      <button className="w-100 btn btn-lg btn-dark" type="button" onClick={LogIn}>Sign in</button>
     </form>
   );
 }
