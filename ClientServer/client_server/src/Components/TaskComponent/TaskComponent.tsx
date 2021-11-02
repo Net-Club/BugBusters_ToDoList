@@ -4,30 +4,47 @@ import { environment } from '../../env'
 import "./Task.css"
 import { ReturnModel } from "../../Models/ReturnModel"
 
-let Model: Array<TaskStatusModel>
+let Tasks: Array<TaskStatusModel> = []
 
-function TaskComponent() {
-  InitializeData();
+InitializeData()
+
+function TaskComponent() { 
   return (
-    <div className="col, Container">
-      <div className="card shadow-sm">
-        <svg className="bd-placeholder-img card-img-top, Rect" ><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">Name</text></svg>
+    <>
+    {
+      CreateItemList()
+    }
+    <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Add}>Add</button>
+    </>
+  );
+}
 
-        <div className="card-body">
-          <p className="card-text">Description</p>
-          <div className="d-flex justify-content-between align-items-center">
-            <div className="btn-group">
-              <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Edit}>Edit</button>
-              <button id="1" type="button" className="btn btn-sm btn-outline-secondary" onClick={DeleteData}>Delete</button>
+function CreateItemList(): Array<any>
+ {
+  let ItemList = []
+  for (let i: number = 0; i < Tasks.length; i++) {
+    ItemList.push(
+      <div>
+        <div className="col, Container">
+          <div className="card shadow-sm">
+            <svg className="bd-placeholder-img card-img-top, Rect" ><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">{Tasks[i].task}</text></svg>
+
+            <div className="card-body">
+              <p className="card-text">{Tasks[i].description}</p>
+              <div className="d-flex justify-content-between align-items-center">
+                <div className="btn-group">
+                  <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => Edit(Tasks[i].id)}>Edit</button>
+                  <button id="1" type="button" className="btn btn-sm btn-outline-secondary" onClick={() => DeleteData(Tasks[i].id)}>Delete</button>
+                </div>
+                <small className="text-muted">{Tasks[i].status}</small>
+              </div>
             </div>
-            <small className="text-muted">Status</small>
-          </div>
+          </div> 
         </div>
       </div>
-      <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Add}>Add</button>
-    </div>
-
-  );
+    )
+  }
+  return ItemList
 }
 
 async function InitializeData() {
@@ -35,7 +52,15 @@ async function InitializeData() {
   try { Data = await Get() }
   catch { alert("Resource server doesn't respond") }
   finally {
-    Model = Data
+    if (Data.status !== 200)
+    {
+      alert(Data.message)
+    }
+    else
+    {
+      Tasks = Data.data
+      TaskComponent()
+    }
   }
 }
 
@@ -46,29 +71,26 @@ async function Get() {
   }
   const response = await fetch(environment.GetResUrl("/task"), requestOptions)
   const data = await response.json()
-  return data.data
+  return data
 }
 
-function Edit() {
-  let task: TaskModel = new TaskModel(13, "NewTask", "Description", 1)
+function Edit(id: number) {
+  let task: TaskModel = new TaskModel(id, FindByID(id).task, FindByID(id).description, 1)
   localStorage.setItem("task", JSON.stringify(task))
   window.history.replaceState(null, "", "/add_update")
   window.location.reload()
 }
 
-async function DeleteData() {
-  let id: number = 11;
+async function DeleteData(id: number) {
   let Data
   let task: TaskModel = new TaskModel(id, "", "", 0)
   try { Data = await Delete(task) }
   catch { alert("Resource server doesn't respond") }
   finally {
-    if (Data.status !== 200)
-    {
+    if (Data.status !== 200) {
       alert(Data.message)
     }
-    else
-    {
+    else {
       window.location.reload()
     }
   }
@@ -89,6 +111,15 @@ function Add() {
   localStorage.setItem("task", "")
   window.history.replaceState(null, "", "/add_update")
   window.location.reload()
+}
+
+function FindByID(id: number)
+{
+  for (let i:number = 0; i < Tasks.length; i++)
+  {
+    if (id === Tasks[i].id){ return Tasks[i] }
+  }
+  return new TaskStatusModel(0, "", "", 0, "", "")
 }
 
 export default TaskComponent

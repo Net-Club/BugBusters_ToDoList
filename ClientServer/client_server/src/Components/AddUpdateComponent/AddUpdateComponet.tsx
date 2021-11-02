@@ -90,6 +90,7 @@ async function Click() {
             alert(model.message)
         }
         else {
+            localStorage.setItem("task", "")
             window.history.replaceState(null, "", "/tasks")
             window.location.reload()
         }

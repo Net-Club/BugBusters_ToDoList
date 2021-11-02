@@ -12,12 +12,20 @@ namespace ResourceServer.Controllers
     [Route("/res/task")]
     public class TaskController : Controller
     {
-        private int UserId => Int32.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
+
+        private int GetUserId() 
+        {
+            return Int32.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
+        }
 
         [HttpGet]
         public ReturnModel<TaskStatusModel> Get()
         {
-            List<TaskStatusModel> data = DataManager.Utill.GetTaskStatusList(UserId);
+            int UserId;
+            try { UserId = GetUserId(); }
+            catch { return new ReturnModel<TaskStatusModel>(null, 400, "Please log in"); }
+
+                List<TaskStatusModel> data = DataManager.Utill.GetTaskStatusList(UserId);
 
             if (data != null && data.Count == 0) { return new ReturnModel<TaskStatusModel>(null, 400, "Nothing was found"); }
             return new ReturnModel<TaskStatusModel>(data, 200, "All tasks returned");
@@ -27,6 +35,7 @@ namespace ResourceServer.Controllers
         public ReturnModel<string> Post([FromBody] JsonElement JSdata)
         {
             TaskModel task;
+            int UserId = GetUserId();
             try
             {
                 task = new TaskModel(0,
@@ -47,6 +56,7 @@ namespace ResourceServer.Controllers
         [HttpPut]
         public ReturnModel<string> Put([FromBody] JsonElement JSdata)
         {
+            int UserId = GetUserId();
             TaskModel task;
             try
             {
