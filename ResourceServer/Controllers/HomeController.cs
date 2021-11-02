@@ -8,7 +8,7 @@ namespace ResourceServer.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public ReturnModel<string> Get() 
+        public ReturnModel<string> Get()
         {
             return new ReturnModel<string>(null, 200, "Resource server started");
         }

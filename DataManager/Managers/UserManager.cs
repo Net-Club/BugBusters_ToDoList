@@ -7,7 +7,7 @@ namespace DataManager
     public class UserManager
     {
 
-        public static List<UserModel> Get() 
+        public static List<UserModel> Get()
         {
             return ApplicationContextHolder.context.Users.ToList();
         }
@@ -15,8 +15,7 @@ namespace DataManager
         public static bool Post(UserModel user)
         {
             ApplicationContextHolder.context.Users.Add(user);
-            ApplicationContextHolder.context.SaveChanges();
-            return true;
+            return Utill.Save();
         }
     }
 }

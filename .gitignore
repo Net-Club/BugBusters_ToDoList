@@ -361,3 +361,6 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+ClientServer/client_server/package-lock.json
+ClientServer/client_server/package.json
+

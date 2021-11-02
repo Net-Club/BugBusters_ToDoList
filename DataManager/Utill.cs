@@ -7,8 +7,7 @@ namespace DataManager
     {
         public static List<TaskStatusModel> GetTaskStatusList(int id)
         {
-            List<TaskStatusModel> result = new List<TaskStatusModel>();
-
+            List<TaskStatusModel> result = new ();
             foreach (TaskModel task in TaskManager.Get())
             {
                 if (task.User_id == id)
@@ -18,6 +17,13 @@ namespace DataManager
             }
 
             return result;
+        }
+
+        public static bool Save()
+        {
+            try { ApplicationContextHolder.context.SaveChanges(); }
+            catch { return false; }
+            return true;
         }
     }
 }
