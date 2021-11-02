@@ -46,7 +46,7 @@ async function Get() {
  };
 
 function Edit() {
-  let task: TaskModel = new TaskModel(2, "NewTask", "Description", 1);
+  let task: TaskModel = new TaskModel(13, "NewTask", "Description", 1);
   localStorage.setItem("task", JSON.stringify(task))
   window.history.replaceState(null, "", "/add_update")
   window.location.reload();
