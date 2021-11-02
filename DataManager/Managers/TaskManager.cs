@@ -24,6 +24,7 @@ namespace DataManager
         }
         public static bool Delete(int id)
         {
+            ApplicationContextHolder.context.ChangeTracker.Clear();
             ApplicationContextHolder.context.Tasks.Remove(new TaskModel(id, null, null, 0, 0));
             return Utill.Save();
         }

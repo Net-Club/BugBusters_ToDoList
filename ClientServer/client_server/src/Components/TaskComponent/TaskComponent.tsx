@@ -2,6 +2,7 @@ import { TaskModel } from "../../Models/TaskModel"
 import { TaskStatusModel } from "../../Models/TaskStatusModel"
 import { environment } from '../../env'
 import "./Task.css"
+import { ReturnModel } from "../../Models/ReturnModel"
 
 let Model: Array<TaskStatusModel>
 
@@ -17,7 +18,7 @@ function TaskComponent() {
           <div className="d-flex justify-content-between align-items-center">
             <div className="btn-group">
               <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Edit}>Edit</button>
-              <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Delete}>Delete</button>
+              <button id="1" type="button" className="btn btn-sm btn-outline-secondary" onClick={DeleteData}>Delete</button>
             </div>
             <small className="text-muted">Status</small>
           </div>
@@ -35,7 +36,6 @@ async function InitializeData() {
   catch { alert("Resource server doesn't respond") }
   finally {
     Model = Data
-    console.log(Model)
   }
 }
 
@@ -56,7 +56,34 @@ function Edit() {
   window.location.reload()
 }
 
-function Delete() { }
+async function DeleteData() {
+  let id: number = 11;
+  let Data
+  let task: TaskModel = new TaskModel(id, "", "", 0)
+  try { Data = await Delete(task) }
+  catch { alert("Resource server doesn't respond") }
+  finally {
+    if (Data.status !== 200)
+    {
+      alert(Data.message)
+    }
+    else
+    {
+      window.location.reload()
+    }
+  }
+}
+
+async function Delete(task: TaskModel) {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token") },
+    body: JSON.stringify(task)
+  }
+  const response = await fetch(environment.GetResUrl("/task"), requestOptions)
+  const data = await response.json()
+  return data
+}
 
 function Add() {
   localStorage.setItem("task", "")
