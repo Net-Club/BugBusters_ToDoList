@@ -7,7 +7,7 @@ function Home() {
       <div className="Main">Bug Busters</div>
       <div><p>Please log in to get started</p></div>
     </div>
-  );
+  )
 }
 
 export default Home;

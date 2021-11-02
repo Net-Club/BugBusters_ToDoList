@@ -1,10 +1,9 @@
-import { TextField } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab';
-import { allowedNodeEnvironmentFlags } from 'process';
-import { environment } from '../../env';
-import { ReturnModel } from '../../Models/ReturnModel';
-import { StatusModel } from '../../Models/StatusModel';
-import { TaskModel } from '../../Models/TaskModel';
+import { TextField } from '@material-ui/core'
+import { Autocomplete } from '@material-ui/lab'
+import { environment } from '../../env'
+import { ReturnModel } from '../../Models/ReturnModel'
+import { StatusModel } from '../../Models/StatusModel'
+import { TaskModel } from '../../Models/TaskModel'
 import './AddUpdate.css'
 
 let isAdd: boolean
@@ -51,7 +50,7 @@ function AddUpdateComponent() {
 
             <button className="w-100 btn btn-lg btn-dark" type="button" onClick={Click}>{ButtonText}</button>
         </form>
-    );
+    )
 }
 
 function CheckAddorUp() {
@@ -69,28 +68,30 @@ function CheckAddorUp() {
 }
 
 async function Click() {
-    let model: ReturnModel
+    let model: ReturnModel = new ReturnModel([], 0, "")
     if (status === undefined) {
-        alert("Choose status");
+        alert("Choose status")
     }
     else {
         if (isAdd) {
             task = new TaskModel(0, name, description, FindStatusId())
-            model = await Post(task);
+            try{model = await Post(task)}
+            catch{ alert("Resource server doesn't respond") }
         }
         else {
             task = JSON.parse(json)
             task.task = name
             task.description = description
             task.status_id = FindStatusId()
-            model = await Put(task)
+            try {model = await Put(task)}
+            catch { alert("Resource server doesn't respond") }
         }
         if (model.status !== 200) {
             alert(model.message)
         }
         else {
             window.history.replaceState(null, "", "/tasks")
-            window.location.reload();
+            window.location.reload()
         }
     }
 }
@@ -126,14 +127,14 @@ function FindStatusId(): number {
 }
 
 async function GetStatuses() {
-    let data = await GetData();
-    let model: ReturnModel = data;
+    let data = await GetData()
+    let model: ReturnModel = data
 
     if (model.status === 200) {
-        SetOptions(model.data);
+        SetOptions(model.data)
     }
     else {
-        alert(model.message);
+        alert(model.message)
     }
 }
 
@@ -143,8 +144,8 @@ async function GetData() {
         headers: { 'Content-Type': 'application/json' },
     };
 
-    const response = await fetch(environment.GetResUrl("/status"), requestOptions);
-    const data = await response.json();
+    const response = await fetch(environment.GetResUrl("/status"), requestOptions)
+    const data = await response.json()
     return data;
 }
 

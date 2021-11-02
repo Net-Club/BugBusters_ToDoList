@@ -1,5 +1,5 @@
 import './Navigation.css'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 function Navigation() {
   return (
@@ -27,7 +27,7 @@ function Navigation() {
         </div>
       </div>
     </nav>
-  );
+  )
 }
 
 function ifLogedIn(): string
@@ -41,16 +41,16 @@ function ifLogedIn(): string
 
 function CheckToken(): boolean {
   if (localStorage.getItem("token") === "") {
-    return false;
+    return false
   }
-  return true;
+  return true
 }
 
 function LogOut() {
   localStorage.setItem("token", "");
 
   window.history.replaceState(null, "", "/")
-  window.location.reload();
+  window.location.reload()
 }
 
-export default Navigation;
+export default Navigation

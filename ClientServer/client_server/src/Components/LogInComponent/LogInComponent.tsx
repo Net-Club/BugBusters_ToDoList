@@ -1,6 +1,6 @@
-import { environment } from '../../env';
-import { ReturnModel } from '../../Models/ReturnModel';
-import { UserModel } from '../../Models/UserModel';
+import { environment } from '../../env'
+import { ReturnModel } from '../../Models/ReturnModel'
+import { UserModel } from '../../Models/UserModel'
 import './LogIn.css'
 
 let name: string;
@@ -27,7 +27,7 @@ async function LogIn() {
   try {data = await GetData(user)}
   catch
   {
-    alert("Authorization server is not running")
+    alert("Authorization server doesn't respond")
     return
   }
   finally{
@@ -53,7 +53,7 @@ async function GetData(user: UserModel) {
   };
   const response = await fetch(environment.GetAuthUrl("/authorization"), requestOptions)
   const data = await response.json()
-  return data;
+  return data
 }
 
 export default LogInComponent;

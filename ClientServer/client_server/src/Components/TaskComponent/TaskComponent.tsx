@@ -1,9 +1,9 @@
-import { TaskModel } from "../../Models/TaskModel";
-import { TaskStatusModel } from "../../Models/TaskStatusModel";
-import { environment } from '../../env';
+import { TaskModel } from "../../Models/TaskModel"
+import { TaskStatusModel } from "../../Models/TaskStatusModel"
+import { environment } from '../../env'
 import "./Task.css"
 
-let Model: Array<TaskStatusModel>;
+let Model: Array<TaskStatusModel>
 
 function TaskComponent() {
   InitializeData();
@@ -29,35 +29,39 @@ function TaskComponent() {
   );
 }
 
-async function InitializeData(){
-  let Data = await Get();
-  Model = Data;
-  console.log(Model);
+async function InitializeData() {
+  let Data
+  try { Data = await Get() }
+  catch { alert("Resource server doesn't respond") }
+  finally {
+    Model = Data
+    console.log(Model)
+  }
 }
 
 async function Get() {
   const requestOptions = {
     method: 'GET',
     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem("token") }
-  };
-  const response = await fetch(environment.GetResUrl("/task"), requestOptions);
-  const data = await response.json();
-  return data.data;
- };
+  }
+  const response = await fetch(environment.GetResUrl("/task"), requestOptions)
+  const data = await response.json()
+  return data.data
+}
 
 function Edit() {
-  let task: TaskModel = new TaskModel(13, "NewTask", "Description", 1);
+  let task: TaskModel = new TaskModel(13, "NewTask", "Description", 1)
   localStorage.setItem("task", JSON.stringify(task))
   window.history.replaceState(null, "", "/add_update")
-  window.location.reload();
-};
+  window.location.reload()
+}
 
-function Delete() { };
+function Delete() { }
 
 function Add() {
   localStorage.setItem("task", "")
   window.history.replaceState(null, "", "/add_update")
-  window.location.reload();
-};
+  window.location.reload()
+}
 
-export default TaskComponent;
+export default TaskComponent
