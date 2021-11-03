@@ -5,23 +5,29 @@ import "./Task.css"
 import { ReturnModel } from "../../Models/ReturnModel"
 
 let Tasks: Array<TaskStatusModel> = []
+let Initialization: boolean = true;
 
 InitializeData()
 
 function TaskComponent() { 
+  Initialization = true;
+  //InitializeData()
   return (
-    <>
-    {
-      CreateItemList()
-    }
-    <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Add}>Add</button>
-    </>
+      <>
+      <div className="Parent-Container">
+      {
+        CreateItemList()
+      }
+      </div>
+      <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Add}>Add</button>
+      </>
   );
 }
 
 function CreateItemList(): Array<any>
  {
   let ItemList = []
+
   for (let i: number = 0; i < Tasks.length; i++) {
     ItemList.push(
       <div>
@@ -48,7 +54,7 @@ function CreateItemList(): Array<any>
 }
 
 async function InitializeData() {
-  let Data
+  let Data = null;
   try { Data = await Get() }
   catch { alert("Resource server doesn't respond") }
   finally {
@@ -59,6 +65,7 @@ async function InitializeData() {
     else
     {
       Tasks = Data.data
+      //Initialization = true;
       TaskComponent()
     }
   }
