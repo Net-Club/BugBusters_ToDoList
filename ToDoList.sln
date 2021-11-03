@@ -7,9 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResourceServer", "ResourceS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationServer", "AuthorizationServer\AuthorizationServer.csproj", "{875630CB-EBD0-4926-B383-29425606AEC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataManager", "DataManager\DataManager.csproj", "{B414C3B7-2F28-4978-9558-C1D5B9DB29F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataManager", "DataManager\DataManager.csproj", "{B414C3B7-2F28-4978-9558-C1D5B9DB29F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{853DA98E-3806-4D73-9466-016260068FE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{853DA98E-3806-4D73-9466-016260068FE7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

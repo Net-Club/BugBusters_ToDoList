@@ -17,5 +17,11 @@ namespace DataManager
         {
             return ApplicationContextHolder.context.Statuses.ToList();
         }
+
+        public static bool Post(StatusModel status)
+        {
+            ApplicationContextHolder.context.Statuses.Add(status);
+            return Utill.Save();
+        }
     }
 }

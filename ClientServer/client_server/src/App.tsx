@@ -6,6 +6,9 @@ import RegisterComponent from './Components/RegisterComponent/RegisterComponent'
 import TaskComponent from './Components/TaskComponent/TaskComponent';
 import AddUpdateComponent from './Components/AddUpdateComponent/AddUpdateComponet';
 
+localStorage.setItem("token", "")
+localStorage.setItem("task", "")
+
 function App() {
   return (
     <Router>

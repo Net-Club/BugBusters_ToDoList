@@ -18,11 +18,11 @@ namespace DataManager
         static ILoggerFactory ContextLoggerFactory
             => LoggerFactory.Create(b => b.AddFilter("", LogLevel.Information));
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder
-                .UseNpgsql(Env.GetConfigurationString())
-                .EnableSensitiveDataLogging()
-                .UseLoggerFactory(ContextLoggerFactory);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
+        {
+            optionsBuilder.UseSqlServer(Env.GetConfigurationString());
+        }
+            
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
