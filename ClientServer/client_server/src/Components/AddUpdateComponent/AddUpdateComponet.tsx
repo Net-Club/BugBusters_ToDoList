@@ -4,22 +4,28 @@ import { environment } from '../../env'
 import { ReturnModel } from '../../Models/ReturnModel'
 import { StatusModel } from '../../Models/StatusModel'
 import { TaskModel } from '../../Models/TaskModel'
+import { jsonProperty, Serializable } from "ts-serializable";
 import './AddUpdate.css'
+import { convertTypeAcquisitionFromJson } from 'typescript'
 
 let isAdd: boolean
 let ButtonText: string
 let HeaderText: string
 
+let json: any = localStorage.getItem('task')
+
 let name: string
 let description: string
 let status: string | null
-
-let json: any = localStorage.getItem('task')
 let task: TaskModel
 
 let options: string[] = []
 
 function AddUpdateComponent() {
+    let taskinfo: TaskModel = JSON.parse(json);
+    name = taskinfo.task;
+    description = taskinfo.description;
+    //status = taskinfo.status_id;
     GetStatuses()
     CheckAddorUp()
     return (
@@ -29,7 +35,7 @@ function AddUpdateComponent() {
                 <input onChange={event => name = event.target.value} value={name} id="name" className="Pad, form-control" placeholder="Name" required />
             </div>
             <div className="Pad">
-                <input onChange={event => description = event.target.value} value={description} id="description" className="Pad, form-control" placeholder="Description" required />
+                <input onChange={event => description = event.target.value} value={description} id="description" className="Pad, form-control" placeholder="Description" type="text" required />
             </div>
 
             <div className="Pad">
@@ -41,6 +47,7 @@ function AddUpdateComponent() {
                     options={options}
                     renderOption={(option) => option}
                     freeSolo
+                    //defaultValue={options.find(taskinfo.status_id)}
                     renderInput={(params) => (
                         <TextField {...params} label="Enter or choose status"
                             variant="outlined" />
@@ -74,7 +81,7 @@ async function Click() {
     }
     else {
         if (isAdd) {
-            task = new TaskModel(0, name, description, FindStatusId())
+            task = new TaskModel(1, name, description, FindStatusId())
             try{model = await Post(task)}
             catch{ alert("Resource server doesn't respond") }
         }
