@@ -8,9 +8,9 @@ namespace AuthorizationServer.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public ReturnModel<TaskModel> Get()
+        public ReturnModel<string> Get()
         {
-            return new ReturnModel<TaskModel>(TaskManager.Get(), 200, "Authorization server started");
+            return new ReturnModel<string>(null, 200, "Authorization server started");
         }
     }
 }

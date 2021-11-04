@@ -4,8 +4,9 @@ import HomeComponent from './Components/HomeComponent/HomeComponent';
 import LogInComponent from './Components/LogInComponent/LogInComponent';
 import RegisterComponent from './Components/RegisterComponent/RegisterComponent';
 import TaskComponent from './Components/TaskComponent/TaskComponent';
-import AddUpdateComponent from './Components/AddUpdateComponent/AddUpdateComponet';
+import AddUpdateComponent from './Components/UpdateComponent/UpdateComponet';
 import AddComponent from './Components/AddComponet/AddComponent';
+import UpdateComponent from './Components/UpdateComponent/UpdateComponet';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Route path="/register" component={RegisterComponent}/>
         <Route path="/tasks" component={TaskComponent}/>
         <Route path="/add" component={AddComponent}/>
-        <Route path="/add_update" component={AddUpdateComponent}/>
+        <Route path="/update" component={UpdateComponent}/>
       </Switch>
       </main>
     </Router>

@@ -6,8 +6,9 @@ export class TaskStatusModel
     public user_id!:number;
     public status!:string;
     public status_desc!:string;
+    public status_id!:number;
 
-    constructor(id:number, task:string, description:string, user_id:number, status:string, status_desc:string)
+    constructor(id:number, task:string, description:string, user_id:number, status:string, status_desc:string, status_id:number)
     {
         this.id = id;
         this.task = task;
@@ -15,5 +16,6 @@ export class TaskStatusModel
         this.user_id = user_id;
         this.status = status;
         this.status_desc = status_desc;
+        this.status_id = status_id;
     }
 }

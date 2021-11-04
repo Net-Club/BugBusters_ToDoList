@@ -3,40 +3,44 @@ import { TaskStatusModel } from "../../Models/TaskStatusModel"
 import { environment } from '../../env'
 import "./Task.css"
 import { ReturnModel } from "../../Models/ReturnModel"
+import UpdateComponent from "../UpdateComponent/UpdateComponet"
 
 let Tasks: Array<TaskStatusModel> = []
 let Initialization: boolean = true;
 
 InitializeData()
 
-function TaskComponent() { 
+function TaskComponent() {
   Initialization = true;
-  //InitializeData()
   return (
-      <>
+    <>
       <div className="Parent-Container">
-      {
-        CreateItemList()
-      }
+        {
+          CreateItemList()
+        }
       </div>
       <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Add}>Add</button>
-      </>
+    </>
   );
 }
 
-function CreateItemList(): Array<any>
- {
+function CreateItemList(): Array<any> {
   let ItemList = []
 
   for (let i: number = 0; i < Tasks.length; i++) {
     ItemList.push(
       <div>
-        <div className="col, Container">
+        <div className="Container">
           <div className="card shadow-sm">
-            <svg className="bd-placeholder-img card-img-top, Rect" ><rect width="100%" height="100%" fill="#55595c" /><text x="50%" y="50%" fill="#eceeef" dy=".3em">{Tasks[i].task}</text></svg>
-
+            <div className="Title">
+              <div className="">
+                <svg className="bd-placeholder-img card-img-top, Rect" ><rect width="500px" height="100%" fill="#55595c"  /><text x="5%" y="50%" fill="#eceeef" dy=".3em" >{Tasks[i].task}</text></svg>
+              </div>
+            </div>
             <div className="card-body">
-              <p className="card-text">{Tasks[i].description}</p>
+              <div className="Description">
+                <div className="card-text, ScrollStyle" >{Tasks[i].description}</div>
+              </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="btn-group">
                   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => Edit(Tasks[i].id)}>Edit</button>
@@ -45,7 +49,7 @@ function CreateItemList(): Array<any>
                 <small className="text-muted">{Tasks[i].status}</small>
               </div>
             </div>
-          </div> 
+          </div>
         </div>
       </div>
     )
@@ -59,15 +63,11 @@ async function InitializeData() {
   catch { alert("Resource server doesn't respond") }
   finally {
     console.log(Data)
-    if (Data.status !== 200)
-    {
-      //alert(Data.message)
+    if (Data.status !== 200) {
     }
-    else
-    {
+    else {
       Tasks = Data.data
       console.log(Data.data)
-      //Initialization = true;
       TaskComponent()
     }
   }
@@ -84,9 +84,10 @@ async function Get() {
 }
 
 function Edit(id: number) {
-  let task: TaskModel = new TaskModel(id, FindByID(id).task, FindByID(id).description, 1)
+  let task: TaskStatusModel = FindByID(id)
+
   localStorage.setItem("task", JSON.stringify(task))
-  window.history.replaceState(null, "", "/add_update")
+  window.history.replaceState(null, "", "/update")
   window.location.reload()
 }
 
@@ -121,13 +122,11 @@ function Add() {
   window.location.reload()
 }
 
-function FindByID(id: number)
-{
-  for (let i:number = 0; i < Tasks.length; i++)
-  {
-    if (id === Tasks[i].id){ return Tasks[i] }
+function FindByID(id: number) {
+  for (let i: number = 0; i < Tasks.length; i++) {
+    if (id === Tasks[i].id) { return Tasks[i] }
   }
-  return new TaskStatusModel(0, "", "", 0, "", "")
+  return new TaskStatusModel(0, "", "", 0, "", "", 0)
 }
 
 export default TaskComponent

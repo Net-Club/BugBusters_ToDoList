@@ -7,6 +7,7 @@
         private string description;
         private int user_id;
         private string status;
+        private int status_id;
         private string status_desc;
 
         public int Id
@@ -18,6 +19,11 @@
         {
             get { return user_id; }
             set { user_id = value; }
+        }
+        public int Status_id
+        {
+            get { return status_id; }
+            set { status_id = value; }
         }
         public string Task
         {
@@ -49,6 +55,7 @@
             user_id = task.User_id;
             this.status = status.Status;
             status_desc = status.Description;
+            status_id = status.Id;
         }
     }
 }
