@@ -6,7 +6,11 @@ namespace DataManager
 {
     public class TaskManager
     {
-
+        public static TaskModel GetbyId(int id)
+        {
+            TaskModel task = ApplicationContextHolder.context.Tasks.FirstOrDefault(s => s.Id == id);
+            return task;
+        }
         public static List<TaskModel> Get()
         {
             return ApplicationContextHolder.context.Tasks.ToList();
@@ -25,8 +29,10 @@ namespace DataManager
         public static bool Delete(int id)
         {
             ApplicationContextHolder.context.ChangeTracker.Clear();
-            ApplicationContextHolder.context.Tasks.Remove(new TaskModel(id, null, null, 0, 0));
+            ApplicationContextHolder.context.Tasks.Remove(GetbyId(id));
             return Utill.Save();
         }
+
+        
     }
 }
