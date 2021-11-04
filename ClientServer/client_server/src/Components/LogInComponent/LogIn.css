@@ -1,12 +1,10 @@
-.Little
-{
-    padding: 20px;
-    width: 30%;
+.Little {
+    padding   : 20px;
+    width     : 30%;
     text-align: center;
-    margin: auto;
+    margin    : auto;
 }
 
-.Pad
- {
+.Pad {
     margin: 10px;
 }

@@ -20,7 +20,7 @@ function AddComponent() {
         <form className="form-control, Little">
             <h1 className="h3 mb-3 fw-normal, header">Add task</h1>
             <div className="Pad">
-                <input onChange={event => name = event.target.value} value={name} id="name" className="Pad, form-control" placeholder="Name" required />
+                <input onChange={event => name = event.target.value} value={name} id="name" className="Pad, form-control" placeholder="Task" maxLength={50} required />
             </div>
             <div className="Pad">
                 <input onChange={event => description = event.target.value} value={description} id="description" className="Pad, form-control" placeholder="Description" type="text" required />
@@ -125,7 +125,7 @@ function SetOptions(data: StatusModel[]) {
 
 function CheckUnique(value: string): boolean {
     for (let i: number = 0; i < options.length; i += 1) {
-        if (options[i] == value) { return false }
+        if (options[i] === value) { return false }
     }
     return true
 }

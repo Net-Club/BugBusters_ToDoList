@@ -8,26 +8,30 @@ import { TaskStatusModel } from '../../Models/TaskStatusModel'
 import './Update.css'
 
 let json: any = localStorage.getItem('task')
-let task: TaskStatusModel = JSON.parse(json)
+let task: TaskStatusModel = new TaskStatusModel(0, "", "", 0, "", "", 0);
 
-let name: string = task.task
-let description: string = task.description
-let status: string | null = task.status
+let name: string
+let description: string
+let status: string | null
 
 let Statuses: Array<StatusModel> = []
 
 let options: string[] = []
 
 function UpdateComponent() {
+    task = JSON.parse(json)
+    name = task.task
+    description = task.description
+    status = task.status
     GetStatuses()
     return (
         <form className="form-control, Little">
             <h1 className="h3 mb-3 fw-normal, header">Update task</h1>
             <div className="Pad">
-                <input onChange={event => name = event.target.value} defaultValue={name} id="name" className="Pad, form-control" placeholder={task.task} />
+                <input onChange={event => name = event.target.value} defaultValue={name} id="name" className="Pad, form-control" placeholder="Task" maxLength={50}/>
             </div>
             <div className="Pad">
-                <input onChange={event => description = event.target.value} defaultValue={description} id="description" className="Pad, form-control" placeholder={task.description} type="text" required />
+                <input onChange={event => description = event.target.value} defaultValue={description} id="description" className="Pad, form-control" placeholder="Description" type="text" required />
             </div>
 
             <div className="Pad">
@@ -63,7 +67,20 @@ async function Update() {
         task.task = name
         task.description = description
         task.status_id = FindStatusId()
-        console.log(task)
+        try{
+        model = await Put(task)
+        }
+        catch { alert("Resource server doesn't respond") }
+        finally{
+            if (model.status !== 200) {
+                alert(model.message)
+            }
+            else {
+                localStorage.setItem("task", "")
+                window.history.replaceState(null, "", "/tasks")
+                window.location.reload()
+            }
+        }
 
     }
 }
@@ -122,7 +139,7 @@ function SetOptions(data: StatusModel[]) {
 
 function CheckUnique(value: string): boolean {
     for (let i: number = 0; i < options.length; i += 1) {
-        if (options[i] == value) { return false }
+        if (options[i] === value) { return false }
     }
     return true
 }
