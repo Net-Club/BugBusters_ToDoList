@@ -2,24 +2,24 @@ import { TaskModel } from "../../Models/TaskModel"
 import { TaskStatusModel } from "../../Models/TaskStatusModel"
 import { environment } from '../../env'
 import "./Task.css"
-import { ReturnModel } from "../../Models/ReturnModel"
-import UpdateComponent from "../UpdateComponent/UpdateComponet"
 
 let Tasks: Array<TaskStatusModel> = []
-let Initialization: boolean = true;
 
 InitializeData()
 
 function TaskComponent() {
-  Initialization = true;
   return (
     <>
-      <div className="Parent-Container">
-        {
-          CreateItemList()
-        }
+      <div>
+        <div className="AddButton">
+          <button className="w-100 btn btn-lg btn-dark" type="button" onClick={Add}>Add</button>
+        </div>
+        <div className="Parent-Container">
+          {
+            CreateItemList()
+          }
+        </div>
       </div>
-      <button type="button" className="btn btn-sm btn-outline-secondary" onClick={Add}>Add</button>
     </>
   );
 }
@@ -28,25 +28,28 @@ function CreateItemList(): Array<any> {
   let ItemList = []
 
   for (let i: number = 0; i < Tasks.length; i++) {
+    let id: number = Tasks[i].id
     ItemList.push(
-      <div>
+      <div key={id}>
         <div className="Container">
           <div className="card shadow-sm">
             <div className="Title">
               <div className="">
-                <svg className="bd-placeholder-img card-img-top, Rect" ><rect width="500px" height="100%" fill="#55595c"  /><text x="5%" y="50%" fill="#eceeef" dy=".3em" >{Tasks[i].task}</text></svg>
+                <div className="Header" >{Tasks[i].task}</div>
               </div>
             </div>
             <div className="card-body">
               <div className="Description">
-                <div className="card-text, ScrollStyle" >{Tasks[i].description}</div>
+                <div className="ScrollStyle">
+                  {Tasks[i].description}
+                </div>
               </div>
               <div className="d-flex justify-content-between align-items-center">
                 <div className="btn-group">
-                  <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => Edit(Tasks[i].id)}>Edit</button>
-                  <button id="1" type="button" className="btn btn-sm btn-outline-secondary" onClick={() => DeleteData(Tasks[i].id)}>Delete</button>
+                  <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => Edit(id)}>Edit</button>
+                  <button id="1" type="button" className="btn btn-sm btn-outline-secondary" onClick={() => {if (window.confirm('Are you sure you want to delete this item?')) { DeleteData(id) }}}>Delete</button>
                 </div>
-                <small className="text-muted">{Tasks[i].status}</small>
+                <div className={ChooseColor(Tasks[i].status)} >{Tasks[i].status}</div>
               </div>
             </div>
           </div>
@@ -55,6 +58,19 @@ function CreateItemList(): Array<any> {
     )
   }
   return ItemList
+}
+
+function ChooseColor(status: string): string {
+  switch (status) {
+    case "Done":
+      return "Green"
+    case "InProgress":
+      return "Yellow"
+    case "Failed":
+      return "Red"
+    default:
+      return ""
+  }
 }
 
 async function InitializeData() {
@@ -92,18 +108,19 @@ function Edit(id: number) {
 }
 
 async function DeleteData(id: number) {
-  let Data
-  let task: TaskModel = new TaskModel(id, "", "", 0)
-  try { Data = await Delete(task) }
-  catch { alert("Resource server doesn't respond") }
-  finally {
-    if (Data.status !== 200) {
-      alert(Data.message)
+    let Data
+    let task: TaskModel = new TaskModel(id, "", "", 0)
+    try { Data = await Delete(task) }
+    catch { alert("Resource server doesn't respond") }
+    finally {
+      if (Data.status !== 200) {
+        alert(Data.message)
+      }
+      else {
+        window.location.reload()
+      }
     }
-    else {
-      window.location.reload()
-    }
-  }
+
 }
 
 async function Delete(task: TaskModel) {
