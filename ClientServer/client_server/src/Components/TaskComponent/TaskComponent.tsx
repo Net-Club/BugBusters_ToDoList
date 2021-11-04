@@ -58,13 +58,15 @@ async function InitializeData() {
   try { Data = await Get() }
   catch { alert("Resource server doesn't respond") }
   finally {
+    console.log(Data)
     if (Data.status !== 200)
     {
-      alert(Data.message)
+      //alert(Data.message)
     }
     else
     {
       Tasks = Data.data
+      console.log(Data.data)
       //Initialization = true;
       TaskComponent()
     }
@@ -115,8 +117,7 @@ async function Delete(task: TaskModel) {
 }
 
 function Add() {
-  localStorage.setItem("task", "")
-  window.history.replaceState(null, "", "/add_update")
+  window.history.replaceState(null, "", "/add")
   window.location.reload()
 }
 

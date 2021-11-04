@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataManager;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace ResourceServer.Controllers

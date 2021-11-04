@@ -24,18 +24,19 @@ function LogInComponent() {
 async function LogIn() {
   let user: UserModel = new UserModel(name, password)
   let data: any
-  try {data = await GetData(user)}
+  try { data = await GetData(user) }
   catch
   {
     alert("Authorization server doesn't respond")
     return
   }
-  finally{
-  let model: ReturnModel = data
+  finally {
+    let model: ReturnModel = data
     console.log(model.message);
     localStorage.setItem("token", "")
     if (model.status === 200) {
       localStorage.setItem("token", model.data[0])
+      console.log(model)
       window.history.replaceState(null, "", "/tasks")
       window.location.reload()
     }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataManager;
+using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace AuthorizationServer.Controllers
@@ -7,9 +8,9 @@ namespace AuthorizationServer.Controllers
     public class HomeController : Controller
     {
         [HttpGet]
-        public ReturnModel<string> Get()
+        public ReturnModel<TaskModel> Get()
         {
-            return new ReturnModel<string>(null, 200, "Authorization server started");
+            return new ReturnModel<TaskModel>(TaskManager.Get(), 200, "Authorization server started");
         }
     }
 }
