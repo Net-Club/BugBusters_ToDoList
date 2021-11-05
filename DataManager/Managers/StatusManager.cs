@@ -9,19 +9,18 @@ namespace DataManager
 
         public static StatusModel GetbyId(int id)
         {
-            StatusModel status = ApplicationContextHolder.context.Statuses.FirstOrDefault(s => s.Id == id);
+            StatusModel status;
+            try { status = ApplicationContextHolder.context.Statuses.FirstOrDefault(s => s.Id == id); }
+            catch { return null; }
             return status;
         }
 
         public static List<StatusModel> Get()
         {
-            return ApplicationContextHolder.context.Statuses.ToList();
-        }
-
-        public static bool Post(StatusModel status)
-        {
-            ApplicationContextHolder.context.Statuses.Add(status);
-            return Utill.Save();
+            List<StatusModel> result;
+            try { result = ApplicationContextHolder.context.Statuses.ToList(); }
+            catch { return null; }
+            return result;
         }
     }
 }

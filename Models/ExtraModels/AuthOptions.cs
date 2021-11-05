@@ -11,7 +11,10 @@ namespace AuthorizationServer.Common
         public int TokenLifeTime { get; set; }
         public SymmetricSecurityKey GetSymmetricSecurityKey()
         {
-            return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Secret));
+            SymmetricSecurityKey key;
+            try { key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Secret)); }
+            catch { return null; }
+            return key;
         }
     }
 }

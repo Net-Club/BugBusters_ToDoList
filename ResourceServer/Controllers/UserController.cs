@@ -23,7 +23,7 @@ namespace ResourceServer.Controllers
             }
 
             if (UserManager.Post(user)) { return new ReturnModel<string>(null, 200, "Data saved"); }
-            return new ReturnModel<string>(null, 400, "Data not saved");
+            return new ReturnModel<string>(null, 405, "Data not saved");
         }
     }
 }
