@@ -1,5 +1,4 @@
-﻿using DataManager;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Models;
 
 namespace AuthorizationServer.Controllers

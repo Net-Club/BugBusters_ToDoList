@@ -22,9 +22,7 @@ namespace DataManager
         {
             optionsBuilder.UseSqlServer(Env.GetConfigurationString());
         }
-            
-
-
+      
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<UserModel>()
