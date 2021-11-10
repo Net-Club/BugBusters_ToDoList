@@ -16,7 +16,7 @@ namespace ResourceServer.Controllers
         private int GetUserId() 
         {
             int result = -1;
-            try { Int32.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value); }
+            try { result = Int32.Parse(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value); }
             catch { return -1; }
             return result;
         }

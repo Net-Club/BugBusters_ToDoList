@@ -59,16 +59,17 @@ async function Add() {
         else {
             task = new TaskModel(1, name, description, FindStatusId())
             try { model = await Post(task) }
-            catch { alert("Resource server doesn't respond") }
-            finally {
-                if (model.status !== 200) {
-                    alert(model.message)
-                }
-                else {
-                    localStorage.setItem("task", "")
-                    window.history.replaceState(null, "", "/tasks")
-                    window.location.reload()
-                }
+            catch {
+                alert("Resource server doesn't respond")
+                return
+            }
+            if (model.status !== 200) {
+                alert(model.message)
+            }
+            else {
+                localStorage.setItem("task", "")
+                window.history.replaceState(null, "", "/tasks")
+                window.location.reload()
             }
         }
     }
@@ -94,7 +95,12 @@ function FindStatusId(): number {
 }
 
 async function GetStatuses() {
-    let data = await GetData()
+    let data;
+    try { data = await GetData() }
+    catch {
+        alert("Resource server doesn't respond")
+        return
+    }
     let model: ReturnModel = data
     console.log(model.data)
     if (model.status === 200) {

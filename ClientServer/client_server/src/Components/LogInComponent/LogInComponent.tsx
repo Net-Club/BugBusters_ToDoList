@@ -30,19 +30,17 @@ async function LogIn() {
     alert("Authorization server doesn't respond")
     return
   }
-  finally {
-    let model: ReturnModel = data
-    console.log(model.message);
-    localStorage.setItem("token", "")
-    if (model.status === 200) {
-      localStorage.setItem("token", model.data[0])
-      console.log(model)
-      window.history.replaceState(null, "", "/tasks")
-      window.location.reload()
-    }
-    else {
-      alert(model.message)
-    }
+  let model: ReturnModel = data
+  console.log(model.message);
+  localStorage.setItem("token", "")
+  if (model.status === 200) {
+    localStorage.setItem("token", model.data[0])
+    console.log(model)
+    window.history.replaceState(null, "", "/tasks")
+    window.location.reload()
+  }
+  else {
+    alert(model.message)
   }
 }
 
