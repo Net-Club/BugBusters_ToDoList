@@ -28,7 +28,7 @@ function UpdateComponent() {
         <form className="form-control, Little">
             <h1 className="h3 mb-3 fw-normal, header">Update task</h1>
             <div className="Pad">
-                <input onChange={event => name = event.target.value} defaultValue={name} id="name" className="Pad, form-control" placeholder="Task" maxLength={50}/>
+                <input onChange={event => name = event.target.value} defaultValue={name} id="name" className="Pad, form-control" placeholder="Task" maxLength={50} />
             </div>
             <div className="Pad">
                 <input onChange={event => description = event.target.value} defaultValue={description} id="description" className="Pad, form-control" placeholder="Description" type="text" required />
@@ -67,21 +67,21 @@ async function Update() {
         task.task = name
         task.description = description
         task.status_id = FindStatusId()
-        try{
-        model = await Put(task)
+        try {
+            model = await Put(task)
         }
-        catch { alert("Resource server doesn't respond") }
-        finally{
-            if (model.status !== 200) {
-                alert(model.message)
-            }
-            else {
-                localStorage.setItem("task", "")
-                window.history.replaceState(null, "", "/tasks")
-                window.location.reload()
-            }
+        catch {
+            alert("Resource server doesn't respond")
+            return
         }
-
+        if (model.status !== 200) {
+            alert(model.message)
+        }
+        else {
+            localStorage.setItem("task", "")
+            window.history.replaceState(null, "", "/tasks")
+            window.location.reload()
+        }
     }
 }
 
@@ -108,7 +108,12 @@ function FindStatusId(): number {
 }
 
 async function GetStatuses() {
-    let data = await GetData()
+    let data 
+    try {data = await GetData()}
+    catch {
+        alert("Resource server doesn't respond")
+        return
+    }
     let model: ReturnModel = data
 
     if (model.status === 200) {

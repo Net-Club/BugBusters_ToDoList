@@ -27,18 +27,20 @@ async function Register() {
   let user: UserModel = new UserModel(name, password)
   let data
   try { data = await SetData(user) }
-  catch { alert("Resource server doesn't respond") }
-  finally {
-    let model: ReturnModel = data
-
-    console.log(model.message)
-
-    if (model.status === 200) {
-      window.history.replaceState(null, "", "/login")
-      window.location.reload()
-    }
-    else { alert(model.message) }
+  catch {
+    alert("Resource server doesn't respond")
+    return
   }
+  let model: ReturnModel = data
+
+  console.log(model.message)
+
+  if (model.status === 200) {
+    window.history.replaceState(null, "", "/login")
+    window.location.reload()
+  }
+  else { alert(model.message) }
+
 }
 
 async function SetData(user: UserModel) {

@@ -47,7 +47,7 @@ function CreateItemList(): Array<any> {
               <div className="d-flex justify-content-between align-items-center">
                 <div className="btn-group">
                   <button type="button" className="btn btn-sm btn-outline-secondary" onClick={() => Edit(id)}>Edit</button>
-                  <button id="1" type="button" className="btn btn-sm btn-outline-secondary" onClick={() => {if (window.confirm('Are you sure you want to delete this item?')) { DeleteData(id) }}}>Delete</button>
+                  <button id="1" type="button" className="btn btn-sm btn-outline-secondary" onClick={() => { if (window.confirm('Are you sure you want to delete this item?')) { DeleteData(id) } }}>Delete</button>
                 </div>
                 <div className={ChooseColor(Tasks[i].status)} >{Tasks[i].status}</div>
               </div>
@@ -76,17 +76,19 @@ function ChooseColor(status: string): string {
 async function InitializeData() {
   let Data = null;
   try { Data = await Get() }
-  catch { alert("Resource server doesn't respond") }
-  finally {
-    console.log(Data)
-    if (Data.status !== 200) {
-    }
-    else {
-      Tasks = Data.data
-      console.log(Data.data)
-      TaskComponent()
-    }
+  catch {
+    alert("Resource server doesn't respond")
+    return
   }
+  console.log(Data)
+  if (Data.status !== 200) {
+  }
+  else {
+    Tasks = Data.data
+    console.log(Data.data)
+    TaskComponent()
+  }
+
 }
 
 async function Get() {
@@ -108,18 +110,19 @@ function Edit(id: number) {
 }
 
 async function DeleteData(id: number) {
-    let Data
-    let task: TaskModel = new TaskModel(id, "", "", 0)
-    try { Data = await Delete(task) }
-    catch { alert("Resource server doesn't respond") }
-    finally {
-      if (Data.status !== 200) {
-        alert(Data.message)
-      }
-      else {
-        window.location.reload()
-      }
-    }
+  let Data
+  let task: TaskModel = new TaskModel(id, "", "", 0)
+  try { Data = await Delete(task) }
+  catch {
+    alert("Resource server doesn't respond")
+    return
+  }
+  if (Data.status !== 200) {
+    alert(Data.message)
+  }
+  else {
+    window.location.reload()
+  }
 
 }
 
