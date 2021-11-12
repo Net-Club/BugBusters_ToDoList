@@ -1,11 +1,53 @@
-.Rect 
-{
-    height: 30px;
-    width: 100%;
+.Header {
+    text-align      : center;
+    background-color: #55595c;
+    color           : white;
 }
 
-.Container 
-{
-    width: 25%;
-    height: 40%;
+.Title {
+    max-width: 500px;
+}
+
+.Task {
+    height: 200px;
+}
+
+.Description {
+    margin-bottom: 10px;
+    height       : 100px;
+    max-width    : 100%;
+}
+
+.ScrollStyle {  
+    height    : 100%;
+    overflow-y: scroll;
+}
+
+.Container {
+    margin   : 2%;
+    max-width: 450px;
+}
+
+.Parent-Container {
+    display              : grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows       : minmax(100px, auto);
+}
+
+.AddButton {
+    width : 10%;
+    height: 5%;
+    margin: 10px;
+}
+
+.Red {
+    color: red;
+}
+
+.Green {
+    color: green;
+}
+
+.Yellow {
+    color: rgb(206, 206, 31);
 }

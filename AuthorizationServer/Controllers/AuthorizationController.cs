@@ -27,22 +27,25 @@ namespace AuthorizationServer.Controllers
         {
             UserModel user;
             try { user = AuthenticateUser(JSdata.GetProperty("name").GetString(), JSdata.GetProperty("password").GetString()); }
-            catch { return new ReturnModel<string>(new List<string>() { "" }, 401, "Wrong JS data"); }
+            catch { return new ReturnModel<string>(new List<string>() { "" }, 400, "Wrong JS data"); }
             if (user != null)
             {
                 string token = GenerateJWT(user);
+                if (token == null)
+                {
+                    return new ReturnModel<string>(new List<string>() { token }, 523, "Bad auth Options");
+                }
+                else { return new ReturnModel<string>(new List<string>() { token }, 200, "Authorized"); }
 
-                return new ReturnModel<string>(new List<string>() { token }, 200, "Authorized");
             }
-            else
-            {
-                return new ReturnModel<string>(new List<string>() { "" }, 401, "UnAuthorized");
-            }
+            else { return new ReturnModel<string>(new List<string>() { "" }, 401, "UnAuthorized"); }  
         }
 
         private static UserModel AuthenticateUser(string name, string password)
         {
             List<UserModel> accounts = UserManager.Get();
+
+            if (accounts == null || accounts.Count == 0) { return null; }
 
             for (int i = 0; i < accounts.Count; i++)
             {
@@ -57,17 +60,18 @@ namespace AuthorizationServer.Controllers
         private string GenerateJWT(UserModel user)
         {
             AuthOptions authParams = authOptions.Value;
-
+            if (authParams == null) { return null; }
             SymmetricSecurityKey securityKey = authParams.GetSymmetricSecurityKey();
-            SigningCredentials credentials = new (securityKey, SecurityAlgorithms.HmacSha256);
+            if (securityKey == null) { return null; }
+            SigningCredentials credentials = new(securityKey, SecurityAlgorithms.HmacSha256);
 
-            List<Claim> claims = new ()
+            List<Claim> claims = new()
             {
-                new Claim (JwtRegisteredClaimNames.Email, user.Name),
+                new Claim(JwtRegisteredClaimNames.Email, user.Name),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
             };
 
-            JwtSecurityToken token = new (authParams.Issuer,
+            JwtSecurityToken token = new(authParams.Issuer,
                 authParams.Audience,
                 claims,
                 expires: DateTime.Now.AddSeconds(authParams.TokenLifeTime),

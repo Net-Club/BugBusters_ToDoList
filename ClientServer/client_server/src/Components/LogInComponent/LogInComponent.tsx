@@ -1,6 +1,6 @@
-import { environment } from '../../env';
-import { ReturnModel } from '../../Models/ReturnModel';
-import { UserModel } from '../../Models/UserModel';
+import { environment } from '../../env'
+import { ReturnModel } from '../../Models/ReturnModel'
+import { UserModel } from '../../Models/UserModel'
 import './LogIn.css'
 
 let name: string;
@@ -24,24 +24,23 @@ function LogInComponent() {
 async function LogIn() {
   let user: UserModel = new UserModel(name, password)
   let data: any
-  try {data = await GetData(user)}
+  try { data = await GetData(user) }
   catch
   {
-    alert("Authorization server is not running")
+    alert("Authorization server doesn't respond")
     return
   }
-  finally{
   let model: ReturnModel = data
-    console.log(model.message);
-    localStorage.setItem("token", "")
-    if (model.status === 200) {
-      localStorage.setItem("token", model.data[0])
-      window.history.replaceState(null, "", "/tasks")
-      window.location.reload()
-    }
-    else {
-      alert(model.message)
-    }
+  console.log(model.message);
+  localStorage.setItem("token", "")
+  if (model.status === 200) {
+    localStorage.setItem("token", model.data[0])
+    console.log(model)
+    window.history.replaceState(null, "", "/tasks")
+    window.location.reload()
+  }
+  else {
+    alert(model.message)
   }
 }
 
@@ -53,7 +52,7 @@ async function GetData(user: UserModel) {
   };
   const response = await fetch(environment.GetAuthUrl("/authorization"), requestOptions)
   const data = await response.json()
-  return data;
+  return data
 }
 
 export default LogInComponent;

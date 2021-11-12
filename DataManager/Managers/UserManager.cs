@@ -9,12 +9,27 @@ namespace DataManager
 
         public static List<UserModel> Get()
         {
-            return ApplicationContextHolder.context.Users.ToList();
+            List<UserModel> result;
+            try { result = ApplicationContextHolder.context.Users.ToList(); }
+            catch { return null; }
+            return result;
         }
 
         public static bool Post(UserModel user)
         {
-            ApplicationContextHolder.context.Users.Add(user);
+            try { ApplicationContextHolder.context.Users.Add(user); }
+            catch { return false; }
+            return Utill.Save();
+        }
+
+        public static bool Delete(int id)
+        {
+            try
+            {
+                ApplicationContextHolder.context.ChangeTracker.Clear();
+                ApplicationContextHolder.context.Users.Remove(new UserModel(id, "", ""));
+            }
+            catch { return false; }          
             return Utill.Save();
         }
     }
